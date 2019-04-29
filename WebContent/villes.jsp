@@ -6,6 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<title>Liste des villes</title>
 	</head>
 	<body>
@@ -41,10 +42,10 @@
 						    		<th>${ville.getCodeCommuneINSEE()}</th>
 							    	<td>${ville.getNomCommune()}</td>
 							    	<td>${ville.getCodePostal()}</td>
-							    	<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">Editer</button></td>
+							    	<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${ville.getNomCommune()}"><span class="fa fa-pencil"></span></button></td>
 							    </tr>
 							    <!-- Modal -->
-								<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+								<div class="modal fade" id="${ville.getNomCommune()}" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
 								      <div class="modal-header">
@@ -53,38 +54,41 @@
 								          <span aria-hidden="true">&times;</span>
 								        </button>
 								      </div>
-								      <div class="modal-body">
-								      	<form method="POST" action="POST">
+								      <form action="VillesServlet" method="POST">
+								      	<div class="modal-body">
+								      		<div class="form-group">
+								      			<input type="text" name="codeCommuneINSEE" id="codeCommuneINSEE" value="${ville.getCodeCommuneINSEE()}" disabled>
+								      		</div>
 								      		<div class="form-group">
 								            	<label for="nomCommune" class="col-form-label">Nom Commune</label>
-								            	<input type="text" class="form-control" id="nomCommune" value="${ville.getNomCommune()}">
+								            	<input type="text" class="form-control" id="nomCommune" name="nomCommune" value="${ville.getNomCommune()}">
 								          	</div>
 								          	<div class="form-group">
 								            	<label for="codePostal" class="col-form-label">Code Postal</label>
-								            	<input type="text" class="form-control" id="codePostal">
+								            	<input type="text" class="form-control" id="codePostal" name="codePostal" value="${ville.getCodePostal()}">
 								          	</div>
 								          	<div class="form-group">
 								            	<label for="libelleAcheminement" class="col-form-label">Libellé acheminement</label>
-								            	<input type="text" class="form-control" id="libelleAcheminement">
+								            	<input type="text" class="form-control" id="libelleAcheminement" name="libelleAcheminement" value="${ville.getLibelleAcheminement()}">
 								          	</div>
 								          	<div class="form-group">
 								            	<label for="ligne5" class="col-form-label">Ligne 5</label>
-								            	<input type="text" class="form-control" id="ligne5">
+								            	<input type="text" class="form-control" id="ligne5" name="ligne5" value="${ville.getLigne5()}">
 								          	</div>
 								          	<div class="form-group">
 								            	<label for="latitude" class="col-form-label">Latitude</label>
-								            	<input type="text" class="form-control" id="latitude">
+								            	<input type="text" class="form-control" id="latitude" name="latitude" value="${ville.getLatitude()}">
 								          	</div>
 								          	<div class="form-group">
 								            	<label for="longitude" class="col-form-label">Longitude</label>
-								            	<input type="text" class="form-control" id="longitude">
+								            	<input type="text" class="form-control" id="longitude" name="longitude" value="${ville.getLongitude()}">
 								          	</div>
-								        </form>
-								      </div>
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-								        <button type="button" class="btn btn-primary">Enregistrer</button>
-								      </div>
+								        </div>
+								      	<div class="modal-footer">
+								        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+								        	<button type="submit" class="btn btn-primary">Enregistrer</button>
+								        </div>
+								      </form>
 								    </div>
 								  </div>
 								</div>

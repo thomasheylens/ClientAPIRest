@@ -13,6 +13,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
@@ -26,6 +27,8 @@ import eseo.twic.utilitaire.RestResponse;
 public class VillesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String URL_GET = "http://localhost:8181/get";
+	private String URL_PUT = "http://localhost:8181/put?";
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -61,8 +64,23 @@ public class VillesServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		String codeCommuneINSEE = request.getParameter("codeCommuneINSEE");
+		String nomCommune = request.getParameter("nomCommune");
+		String codePostal = request.getParameter("codePostal");
+		String libelleAcheminement = request.getParameter("libelleAcheminement");
+		String ligne5 = request.getParameter("ligne5");
+		String latitude = request.getParameter("latitude");
+		String longitude = request.getParameter("longitude");
+		
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpPut httpPut = new HttpPut(URL_PUT+"codeCommuneINSEE="+codeCommuneINSEE+"&nomCommune="+nomCommune+"&codePostal="+codePostal+
+											"&libelleAcheminement="+libelleAcheminement+"&ligne5="+ligne5+
+											"&latitude="+latitude+"&longitude="+longitude);
+		
+		client.execute(httpPut);
+		
+		doGet(request,response);
 	}
 
 }

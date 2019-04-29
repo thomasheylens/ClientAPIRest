@@ -69,15 +69,16 @@ public class DistanceServlet extends HttpServlet {
 
 		VilleFrance ville1 = new VilleFrance();
 		ville1 = RestResponse.getRestResponse(URL_GET_VILLE+code1).get(0);
-		double long1 = Double.parseDouble(ville1.getLongitude());
-		double lat1 = Double.parseDouble(ville1.getLatitude());
+		double long1 = Math.toRadians(Double.parseDouble(ville1.getLongitude()));
+		double lat1 = Math.toRadians(Double.parseDouble(ville1.getLatitude()));
 		
 		VilleFrance ville2 = new VilleFrance();
 		ville2 = RestResponse.getRestResponse(URL_GET_VILLE+code2).get(0);
-		double long2 = Double.parseDouble(ville2.getLongitude());
-		double lat2 = Double.parseDouble(ville2.getLatitude());
+		double long2 = Math.toRadians(Double.parseDouble(ville2.getLongitude()));
+		double lat2 = Math.toRadians(Double.parseDouble(ville2.getLatitude()));
 		//ACOS(SIN(lat1)*SIN(lat2)+COS(lat1)*COS(lat2)*COS(lon2-lon1))*6371
 		double distance = Math.acos((Math.sin(lat1)*Math.sin(lat2))+(Math.cos(lat1)*Math.cos(lat2)*Math.cos(long2-long1)))*6378;
+		distance = (Math.round(distance*100))/100;
 		request.setAttribute("distance", distance);
 		request.setAttribute("ville1", ville1);
 		request.setAttribute("ville2", ville2);

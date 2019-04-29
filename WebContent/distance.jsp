@@ -42,9 +42,9 @@
 				</form>
 			</div>
 			
-			<div class="row">
-				<h4>La distance entre ${ville1.getNomCommune()} et ${ville2.getNomCommune()} est de <c:out value="${distance}"/></h4>
-			</div>
+			<c:if test = "${distance != 0 }">
+         		<h4>La distance entre ${ville1.getNomCommune()} et ${ville2.getNomCommune()} est de <c:out value="${distance}"/> Kms</h4>
+      		</c:if>
 			
 		</div>		
 	</body>
